@@ -4,8 +4,9 @@ import java.util.*
 
 plugins {
     id("com.modrinth.minotaur") version "2.+"
-    kotlin("jvm") version "2.0.21"
-    id("fabric-loom") version "1.8.9"
+    id("fabric-loom")
+    val kotlin_version: String by System.getProperties()
+    kotlin("jvm").version(kotlin_version)
     id("maven-publish")
 }
 
@@ -39,7 +40,7 @@ dependencies {
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
     mappings("net.fabricmc:yarn:${project.property("yarn_mappings")}:v2")
     modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
-    modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
+    modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("fabric_kotlin_version")}")
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
@@ -70,7 +71,7 @@ tasks.processResources {
             "version" to project.version,
             "minecraft_version" to project.property("minecraft_version"),
             "loader_version" to project.property("loader_version"),
-            "kotlin_loader_version" to project.property("kotlin_loader_version")
+            "fabric_kotlin_version" to project.property("fabric_kotlin_version")
         )
     }
 }
